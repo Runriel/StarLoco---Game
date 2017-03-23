@@ -2159,7 +2159,7 @@ public class Fight {
         }
     }
 
-    public void toggleLockSpec(Player player) {
+    /*public void toggleLockSpec(Player player) {
         if ((this.getInit0() != null && this.getInit0().getId() == player.getId()) || (this.getInit1() != null && this.getInit1().getId() == player.getId())) {
             this.setViewerOk(!this.isViewerOk());
 
@@ -2179,6 +2179,31 @@ public class Fight {
             }
         } else {
             player.send("BN");
+        }
+    }*/
+    public synchronized void toggleLockSpec(Player player)
+    {
+        if (getInit0() != null && getInit0().getId() == player.getId() || getInit1() != null && getInit1().getId() == player.getId())
+        {
+            setViewerOk(!isViewerOk());
+            SocketManager.GAME_SEND_FIGHT_CHANGE_OPTION_PACKET_TO_MAP(getInit0().getPlayer().getCurMap(), isViewerOk() ? '+' : '-', 'S', getInit0().getId());
+            SocketManager.GAME_SEND_Im_PACKET_TO_FIGHT(this, 7, isViewerOk() ? "039" : "040");
+        }
+        if (getViewer().size() > 0)
+        {
+            Collection<Player> specs = getViewer().values();
+            for (Player espectador : specs)//Expulsión de espectador
+            {
+                if(espectador == null) continue;
+                if(espectador.getGroupe() == null)
+                {
+                    SocketManager.GAME_SEND_GV_PACKET(espectador);
+                    getViewer().remove(espectador.getId());
+                    espectador.setFight(null);
+                    espectador.setSpec(false);
+                    espectador.setAway(false);
+                }
+            }
         }
     }
 

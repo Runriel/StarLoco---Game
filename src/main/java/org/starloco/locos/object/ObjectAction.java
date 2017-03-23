@@ -516,19 +516,19 @@ public class ObjectAction {
                         if (cellId1 <= 0)
                             return;
                         if (alignement == 0 || alignement == 3) {
-                            SocketManager.GAME_SEND_MESSAGE(player, "Vous ne possedez pas l'alignement nécessaire pour poser un prisme.");
+                            SocketManager.GAME_SEND_MESSAGE(player, "No posees la alineación necesaria para poner un prisma.");
                             return;
                         }
                         if (!player.is_showWings()) {
-                            SocketManager.GAME_SEND_MESSAGE(player, "Vos ailes doivent être activer afin de poser un prisme.");
+                            SocketManager.GAME_SEND_Im_PACKET(player, "1148");
                             return;
                         }
                         if (map0.noPrism || (subArea != null && (subArea.getId() == 9 || subArea.getId() == 95)) || map0.haveMobFix() || map0.getMobGroups().isEmpty()) {
-                            SocketManager.GAME_SEND_MESSAGE(player, "Vous ne pouvez pas poser de prisme sur cette map.");
+                            SocketManager.GAME_SEND_Im_PACKET(player, "1146");
                             return;
                         }
                         if (subArea.getAlignement() != 0 || !subArea.getConquistable()) {
-                            SocketManager.GAME_SEND_MESSAGE(player, "L'alignement de cette sous-zone est en conquête ou n'est pas neutre !");
+                            SocketManager.GAME_SEND_Im_PACKET(player, "1147");
                             return;
                         }
                         Prism Prisme = new Prism(World.world.getNextIDPrisme(), alignement, 1, map0.getId(), cellId1, player.get_honor(), -1);

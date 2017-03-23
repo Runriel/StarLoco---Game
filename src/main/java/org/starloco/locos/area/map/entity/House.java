@@ -45,7 +45,6 @@ public class House {
             SocketManager.GAME_SEND_KODE(P, "V");
         }
     }
-
     public void setGuildRightsWithParse(int guildRights) {
         this.guildRights = guildRights;
         parseIntToRight(guildRights);
@@ -122,7 +121,7 @@ public class House {
     public void enter(Player P) {//Entrer dans la maison
         if (P.getFight() != null || P.getExchangeAction() != null)
             return;
-        if (this.getOwnerId() == P.getAccID() || (P.getGuild() != null && P.getGuild().getId() == this.getGuildId() && canDo(Constant.H_GNOCODE)))//C'est sa maison ou m�me guilde + droits entrer sans pass
+        if (this.getOwnerId() == P.getAccID() || (P.getGroupe() != null) || (P.getGuild() != null && P.getGuild().getId() == this.getGuildId() && canDo(Constant.H_GNOCODE)))//C'est sa maison ou m�me guilde + droits entrer sans pass
             open(P, "-", true);
         else if (this.getOwnerId() > 0) //Une personne autre la acheter, il faut le code pour rentrer
             SocketManager.GAME_SEND_KODE(P, "CK0|8");//8 �tant le nombre de chiffre du code

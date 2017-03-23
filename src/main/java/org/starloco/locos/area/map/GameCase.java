@@ -979,7 +979,7 @@ public class GameCase {
                 if (house == null)
                     return;
 
-                GameMap mapHouse = World.world.getMap((short) house.getHouseMapId());
+                /*GameMap mapHouse = World.world.getMap((short) house.getHouseMapId());
                 if (mapHouse == null) {
                     SocketManager.GAME_SEND_MESSAGE(player, "La maison est cassée.. Contactez un administrateur sur le forum.");
                     return;
@@ -988,7 +988,7 @@ public class GameCase {
                 if (caseHouse == null || !caseHouse.isWalkable(true)) {
                     SocketManager.GAME_SEND_MESSAGE(player, "La maison est cassée.. Contactez un administrateur sur le forum.");
                     return;
-                }
+                }*/
                 if (player.isOnMount()) {
                     SocketManager.GAME_SEND_Im_PACKET(player, "1118");
                     return;
