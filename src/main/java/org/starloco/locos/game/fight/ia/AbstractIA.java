@@ -3,6 +3,7 @@ package org.starloco.locos.game.fight.ia;
 import org.starloco.locos.game.fight.Fight;
 import org.starloco.locos.game.fight.Fighter;
 
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -55,8 +56,10 @@ public abstract class AbstractIA implements IA {
                     this.executor.shutdownNow();
                 }, 1000);
             } else {
-                this.fight.endTurn(false, this.fighter);
-                this.executor.shutdownNow();
+                this.addNext(() -> {
+                    this.fight.endTurn(false, this.fighter);
+                    this.executor.shutdownNow();
+                }, 500);
             }
         } else {
             if(!this.fight.isFinish())

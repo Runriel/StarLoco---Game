@@ -43,7 +43,8 @@ public class ExchangeClient {
         try {
             connectFuture = ioConnector.connect(new InetSocketAddress(Config.INSTANCE.getExchangeIp(), Config.INSTANCE.getExchangePort()));
         } catch (Exception e) {
-            logger.error("Can't find login server : ", e);
+            logger.error("Can't find login server on address {}:{}: ",
+                    Config.INSTANCE.getExchangeIp(), Config.INSTANCE.getExchangePort(),e);
             return false;
         }
 
@@ -53,7 +54,8 @@ public class ExchangeClient {
             e.printStackTrace();
         }
         if(!connectFuture.isConnected()) {
-            logger.error("Can't connect to login server");
+            logger.error("Can't connect to login server on address {}:{}",
+                    Config.INSTANCE.getExchangeIp(), Config.INSTANCE.getExchangePort());
             return false;
         }
 

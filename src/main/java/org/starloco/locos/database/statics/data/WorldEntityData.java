@@ -55,7 +55,7 @@ public class WorldEntityData extends AbstractDAO<Object> {
             close(result);
         }
         try {
-            result = getData("SELECT MAX(id) AS max FROM `world.entity.guilds`;");
+            result = getData("SELECT MAX(id) AS max FROM `guilds`;");
             ResultSet RS = result.resultSet;
             boolean found = RS.first();
             if (found) this.nextGuildId = RS.getInt("max");
