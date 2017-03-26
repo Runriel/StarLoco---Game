@@ -210,11 +210,6 @@ public class Trunk {
             return;
         if (((Trunk) P.getExchangeAction().getValue()).getId() != getId())
             return;
-        if (P.getGroupe() != null)
-        {
-            SocketManager.GAME_SEND_MESSAGE(P,"No puedes añadir objetos a un cofre desde tu personaje con rango.");
-            return;
-        }
         if (this.object.size() >= 10000) // Le plus grand c'est pour si un admin ajoute des objets via la bdd...
         {
             SocketManager.GAME_SEND_MESSAGE(P, "Le nombre d'objets maximal de ce coffre à été atteint !");

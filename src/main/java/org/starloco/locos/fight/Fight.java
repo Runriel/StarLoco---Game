@@ -2159,50 +2159,31 @@ public class Fight {
         }
     }
 
-    /*public void toggleLockSpec(Player player) {
-        if ((this.getInit0() != null && this.getInit0().getId() == player.getId()) || (this.getInit1() != null && this.getInit1().getId() == player.getId())) {
-            this.setViewerOk(!this.isViewerOk());
 
-            if (!this.isViewerOk()) {
-                this.getViewer().values().stream().filter(target -> player.getGroupe() == null).forEach(target -> {
-                    SocketManager.GAME_SEND_GV_PACKET(target);
-                    this.getViewer().remove(target.getId());
-                    target.setFight(null);
-                    target.setAway(false);
-                    target.setSpec(false);
-                });
-                SocketManager.GAME_SEND_FIGHT_CHANGE_OPTION_PACKET_TO_MAP(player.getCurMap(), '+', 'S', player.getId());
-                this.getFighters(3).stream().filter(fighter -> fighter.getPlayer() != null).forEach(fighter -> fighter.getPlayer().send("Im040"));
-            } else {
-                SocketManager.GAME_SEND_FIGHT_CHANGE_OPTION_PACKET_TO_MAP(player.getCurMap(), '-', 'S', player.getId());
-                this.getFighters(3).stream().filter(fighter -> fighter.getPlayer() != null).forEach(fighter -> fighter.getPlayer().send("Im039"));
-            }
-        } else {
-            player.send("BN");
-        }
-    }*/
-    public synchronized void toggleLockSpec(Player player)
-    {
-        if (getInit0() != null && getInit0().getId() == player.getId() || getInit1() != null && getInit1().getId() == player.getId())
-        {
+    /**
+     * Must be called when the spec policy change
+     * @param player player who asked for the lock
+     */
+    public synchronized void toggleLockSpec(Player player) {
+
+        //Check that the player is the initiator of one of the two teams
+        if (getInit0() != null && getInit0().getId() == player.getId()
+                    || getInit1() != null && getInit1().getId() == player.getId()) {
             setViewerOk(!isViewerOk());
             SocketManager.GAME_SEND_FIGHT_CHANGE_OPTION_PACKET_TO_MAP(getInit0().getPlayer().getCurMap(), isViewerOk() ? '+' : '-', 'S', getInit0().getId());
             SocketManager.GAME_SEND_Im_PACKET_TO_FIGHT(this, 7, isViewerOk() ? "039" : "040");
         }
-        if (getViewer().size() > 0)
-        {
-            Collection<Player> specs = getViewer().values();
-            for (Player espectador : specs)//Expulsión de espectador
-            {
-                if(espectador == null) continue;
-                if(espectador.getGroupe() == null)
-                {
-                    SocketManager.GAME_SEND_GV_PACKET(espectador);
-                    getViewer().remove(espectador.getId());
-                    espectador.setFight(null);
-                    espectador.setSpec(false);
-                    espectador.setAway(false);
-                }
+
+        //Kick spectators
+        Iterator<Player> it = getViewer().values().iterator();
+        while(it.hasNext()) {
+            Player spectator = it.next();
+            if (spectator.getGroupe() == null) {
+                SocketManager.GAME_SEND_GV_PACKET(spectator);
+                spectator.setFight(null);
+                spectator.setSpec(false);
+                spectator.setAway(false);
+                it.remove();
             }
         }
     }

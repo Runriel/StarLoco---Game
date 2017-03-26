@@ -104,12 +104,8 @@ public class ConditionParser {
             jep.addVariable("CF", (perso.getObjetByPos(Constant.ITEM_POS_PNJ_SUIVEUR) == null ? -1 : perso.getObjetByPos(Constant.ITEM_POS_PNJ_SUIVEUR).getTemplate().getId()));//Personnage suiveur
 
             Node node = jep.parse(req);
-            Object result = jep.evaluate(node);
-            boolean ok = false;
-
-            if (result != null)
-                ok = Boolean.valueOf(result.toString());
-            return ok;
+            Double result = (Double)jep.evaluate(node);
+            return result == 1.0;
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -111,13 +111,14 @@ object Main {
             Database.getStatics().serverData.loggedZero()
         }
         GameServer.INSTANCE.stop()
+        ExchangeClient.INSTANCE.stop()
         Main.logger.info("The server is now closed.")
     }
 
     @JvmOverloads
     fun stop(reason: String, exitCode : Int = 0) {
         logger.error("Start closing server : {}", reason)
-        Runtime.getRuntime().removeShutdownHook(shutdownThread);
+        Runtime.getRuntime().removeShutdownHook(shutdownThread)
         closeServer()
         System.exit(exitCode)
     }

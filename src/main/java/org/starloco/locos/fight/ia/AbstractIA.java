@@ -57,13 +57,13 @@ public abstract class AbstractIA implements IA {
                 }, 1000);
             } else {
                 this.addNext(() -> {
-                this.fight.endTurn(false, this.fighter);
-                this.executor.shutdownNow();
-                }, 1000);
+                    this.fight.endTurn(false, this.fighter);
+                    this.executor.shutdownNow();
+                }, 500);
             }
         } else {
             if(!this.fight.isFinish())
-            this.addNext(this::endTurn, 500);
+                this.addNext(this::endTurn, 500);
             else
                 this.executor.shutdownNow();
         }
