@@ -20193,8 +20193,8 @@ INSERT INTO `subarea_data` (`id`, `area`, `name`) VALUES
 /*!40000 ALTER TABLE `subarea_data` ENABLE KEYS */;
 
 -- Dumping structure for table starloco_login.world.entity.guilds
-DROP TABLE IF EXISTS `world.entity.guilds`;
-CREATE TABLE IF NOT EXISTS `world.entity.guilds` (
+DROP TABLE IF EXISTS `guilds`;
+CREATE TABLE IF NOT EXISTS `guilds` (
   `id` int(11) NOT NULL,
   `name` varchar(50) CHARACTER SET latin1 NOT NULL,
   `emblem` varchar(20) CHARACTER SET latin1 NOT NULL,
