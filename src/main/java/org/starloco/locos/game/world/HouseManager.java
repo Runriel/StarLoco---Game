@@ -267,7 +267,7 @@ public class HouseManager {
             return;
         int Pguid = Integer.parseInt(packet);
         Player Target = World.world.getPlayer(Pguid);
-        if (Target == null || !Target.isOnline() || Target.getFight() != null
+        if (Target == null || (Target.getGroupe() != null) || !Target.isOnline() || Target.getFight() != null
                 || Target.getCurMap().getId() != player.getCurMap().getId())
             return;
         Target.teleport(h.getMapId(), h.getCellId());

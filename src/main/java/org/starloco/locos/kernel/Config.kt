@@ -19,9 +19,9 @@ object Config {
     var ENCRYPT_PACKET = ConfigReader.data[ConfigReader.options.encryptPacket]
     var TIME_PER_EVENT: Short = ConfigReader.data[ConfigReader.options.event.timePerEvent].toShort()
 
-    var NAME: String = "StarLoco"
+    var NAME: String = "Terra ~ X"
     var url: String = ""
-    var startMessage = "Bienvenue sur le serveur $NAME !"
+    var startMessage = "$NAME gracias a Locos y Runriel por la base."
     var colorMessage = "B9121B"
 
     var START_MAP = ConfigReader.data[ConfigReader.options.start.map]

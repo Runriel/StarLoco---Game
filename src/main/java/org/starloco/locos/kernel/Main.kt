@@ -47,14 +47,16 @@ object Main {
         }
 
         Config.isRunning = true
-        if(!ExchangeClient.INSTANCE.start()) {
-            stop("Can't init discussion with login",3)
-            return
-        }
+
 
         World.world.createWorld()
         if(!GameServer.INSTANCE.start()) {
             stop("Can't init game server",2)
+            return
+        }
+
+        if(!ExchangeClient.INSTANCE.start()) {
+            stop("Can't init discussion with login",3)
             return
         }
 
@@ -109,13 +111,14 @@ object Main {
             Database.getStatics().serverData.loggedZero()
         }
         GameServer.INSTANCE.stop()
+        ExchangeClient.INSTANCE.stop()
         Main.logger.info("The server is now closed.")
     }
 
     @JvmOverloads
     fun stop(reason: String, exitCode : Int = 0) {
         logger.error("Start closing server : {}", reason)
-        Runtime.getRuntime().removeShutdownHook(shutdownThread);
+        Runtime.getRuntime().removeShutdownHook(shutdownThread)
         closeServer()
         System.exit(exitCode)
     }

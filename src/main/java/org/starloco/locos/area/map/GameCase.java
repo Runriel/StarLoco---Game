@@ -15,6 +15,7 @@ import org.starloco.locos.game.world.World;
 import org.starloco.locos.job.JobConstant;
 import org.starloco.locos.job.maging.BreakingObject;
 import org.starloco.locos.kernel.Constant;
+import org.starloco.locos.kernel.Logging;
 import org.starloco.locos.object.GameObject;
 import org.starloco.locos.other.Action;
 import org.starloco.locos.util.TimerWaiter;
@@ -981,11 +982,14 @@ public class GameCase {
 
                 GameMap mapHouse = World.world.getMap((short) house.getHouseMapId());
                 if (mapHouse == null) {
+                    Logging.error.warn("map house id {} wasn't found", house.getHouseMapId());
                     SocketManager.GAME_SEND_MESSAGE(player, "La maison est cassée.. Contactez un administrateur sur le forum.");
                     return;
                 }
                 GameCase caseHouse = mapHouse.getCase(house.getHouseCellId());
                 if (caseHouse == null || !caseHouse.isWalkable(true)) {
+                    Logging.error.warn("case {} in map house id {} wasn't found", house.getHouseCellId(),
+                            house.getHouseMapId());
                     SocketManager.GAME_SEND_MESSAGE(player, "La maison est cassée.. Contactez un administrateur sur le forum.");
                     return;
                 }
