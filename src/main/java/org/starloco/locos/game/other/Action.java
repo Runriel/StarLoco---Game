@@ -4177,7 +4177,7 @@ public class Action {
                         && player.getCurCell().getId() == 142) {
                     player.teleport((short) 8721, 395);
                 } else {
-                    SocketManager.GAME_SEND_MESSAGE(player, "Vous n'êtes pas devant le PNJ.");
+                    SocketManager.GAME_SEND_MESSAGE(player, "No estás en la celda adecuada para ser teleportado.");
                 }
                 break;
 

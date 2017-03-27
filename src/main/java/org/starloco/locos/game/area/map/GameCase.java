@@ -1,5 +1,6 @@
 package org.starloco.locos.game.area.map;
 
+import org.starloco.locos.core.Loggers;
 import org.starloco.locos.game.area.map.entity.House;
 import org.starloco.locos.game.area.map.entity.InteractiveObject;
 import org.starloco.locos.game.area.map.entity.MountPark;
@@ -981,11 +982,14 @@ public class GameCase {
 
                 GameMap mapHouse = World.world.getMap((short) house.getHouseMapId());
                 if (mapHouse == null) {
+                    Loggers.error.warn("map house id {} wasn't found", house.getHouseMapId());
                     SocketManager.GAME_SEND_MESSAGE(player, "La maison est cassée.. Contactez un administrateur sur le forum.");
                     return;
                 }
                 GameCase caseHouse = mapHouse.getCase(house.getHouseCellId());
                 if (caseHouse == null || !caseHouse.isWalkable(true)) {
+                    Loggers.error.warn("case {} in map house id {} wasn't found", house.getHouseCellId(),
+                            house.getHouseMapId());
                     SocketManager.GAME_SEND_MESSAGE(player, "La maison est cassée.. Contactez un administrateur sur le forum.");
                     return;
                 }

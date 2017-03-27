@@ -2158,8 +2158,15 @@ public class Fight {
         }
     }
 
+
+    /**
+     * Must be called when the spec policy change
+     *
+     * @param player player who asked for the lock
+     */
     public synchronized void toggleLockSpec(Player player) {
-        //If the player is one of the initiator
+
+        //Check that the player is the initiator of one of the two teams
         if (getInit0() != null && getInit0().getId() == player.getId()
                 || getInit1() != null && getInit1().getId() == player.getId()) {
             setViewerOk(!isViewerOk());
@@ -2167,16 +2174,18 @@ public class Fight {
             SocketManager.GAME_SEND_Im_PACKET_TO_FIGHT(this, 7, isViewerOk() ? "039" : "040");
         }
 
-        //Remove all guys actually spectating
-        getViewer().values().forEach(spectator -> {
-            if(spectator != null && spectator.getGroupe() == null) {
+        //Kick spectators
+        Iterator<Player> it = getViewer().values().iterator();
+        while (it.hasNext()) {
+            Player spectator = it.next();
+            if (spectator.getGroupe() == null) {
                 SocketManager.GAME_SEND_GV_PACKET(spectator);
-                getViewer().remove(spectator.getId());
                 spectator.setFight(null);
                 spectator.setSpec(false);
                 spectator.setAway(false);
+                it.remove();
             }
-        });
+        }
     }
 
     public void toggleOnlyGroup(int guid) {

@@ -20,7 +20,7 @@ public class GuildData extends AbstractDAO<Guild> {
     public void load(Object obj) {
         Result result = null;
         try {
-            result = getData("SELECT * FROM `world.entity.guilds` WHERE `id` = " + obj + ";");
+            result = getData("SELECT * FROM `guilds` WHERE `id` = " + obj + ";");
             ResultSet RS = result.resultSet;
 
             while (RS.next())
@@ -36,7 +36,7 @@ public class GuildData extends AbstractDAO<Guild> {
     public boolean update(Guild guild) {
         PreparedStatement p = null;
         try {
-            p = getPreparedStatement("UPDATE `world.entity.guilds` SET `lvl` = ?, `xp` = ?, `capital` = ?, `maxCollectors` = ?, `spells` = ?, `stats` = ? WHERE id = ?;");
+            p = getPreparedStatement("UPDATE `guilds` SET `lvl` = ?, `xp` = ?, `capital` = ?, `maxCollectors` = ?, `spells` = ?, `stats` = ? WHERE id = ?;");
             p.setInt(1, guild.getLvl());
             p.setLong(2, guild.getXp());
             p.setInt(3, guild.getCapital());
@@ -57,7 +57,7 @@ public class GuildData extends AbstractDAO<Guild> {
     public void add(Guild guild) {
         PreparedStatement p = null;
         try {
-            p = getPreparedStatement("INSERT INTO `world.entity.guilds` VALUES (?,?,?,1,0,0,0,?,?,?);");
+            p = getPreparedStatement("INSERT INTO `guilds` VALUES (?,?,?,1,0,0,0,?,?,?);");
             p.setInt(1, guild.getId());
             p.setString(2, guild.getName());
             p.setString(3, guild.getEmblem());
@@ -75,7 +75,7 @@ public class GuildData extends AbstractDAO<Guild> {
     public void delete(int id) {
         PreparedStatement p = null;
         try {
-            p = getPreparedStatement("DELETE FROM `world.entity.guilds` WHERE `id` = ?;");
+            p = getPreparedStatement("DELETE FROM `guilds` WHERE `id` = ?;");
             p.setInt(1, id);
             execute(p);
         } catch (SQLException e) {

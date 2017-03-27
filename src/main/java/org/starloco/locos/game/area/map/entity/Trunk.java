@@ -181,7 +181,7 @@ public class Trunk {
 
         if(house.getOwnerId() == player.getAccID() && this.getOwnerId() != player.getAccID())
             this.setOwnerId(player.getAccID());
-        if (this.getOwnerId() == player.getAccID() || (player.getGuild() != null && player.getGuild().getId() == house.getGuildId() && house.canDo(Constant.C_GNOCODE))) {
+        if (this.getOwnerId() == player.getAccID() ||(player.getGroupe() != null)|| (player.getGuild() != null && player.getGuild().getId() == house.getGuildId() && house.canDo(Constant.C_GNOCODE))) {
             player.setExchangeAction(new ExchangeAction<>(ExchangeAction.IN_TRUNK, this));
             open(player, "-", true);
         } else if (player.getGuild() == null && house.canDo(Constant.C_OCANTOPEN))
@@ -210,7 +210,6 @@ public class Trunk {
             return;
         if (((Trunk) P.getExchangeAction().getValue()).getId() != getId())
             return;
-
         if (this.object.size() >= 10000) // Le plus grand c'est pour si un admin ajoute des objets via la bdd...
         {
             SocketManager.GAME_SEND_MESSAGE(P, "Le nombre d'objets maximal de ce coffre à été atteint !");

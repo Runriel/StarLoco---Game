@@ -20,5 +20,7 @@ public class Loggers {
     public static final Logger tchat = LoggerFactory.getLogger("Tchat");
     public static final Logger craft = LoggerFactory.getLogger("Craft");
     public static final Logger report = LoggerFactory.getLogger("Reports");
+    public static final Logger game = LoggerFactory.getLogger("Game");
+    public static final Logger error = LoggerFactory.getLogger("Error");
 
 }
