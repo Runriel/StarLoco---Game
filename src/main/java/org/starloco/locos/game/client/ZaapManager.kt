@@ -50,20 +50,19 @@ class ZaapManager {
     }
 
     @Deprecated("Change for storing as json")
-    fun knownZaapPacket(): String
-        {
-            val str = StringBuilder()
-            var first = true
+    fun knownZaapToDbFormat(): String {
+        val str = StringBuilder()
+        var first = true
 
-            if (zaaps.isEmpty())
-                return ""
-            for (i in zaaps) {
-                if (!first)
-                    str.append(",")
-                first = false
-                str.append(i)
-            }
-            return str.toString()
+        if (zaaps.isEmpty())
+            return ""
+        for (i in zaaps) {
+            if (!first)
+                str.append(",")
+            first = false
+            str.append(i)
         }
+        return str.toString()
+    }
 
 }

@@ -10,6 +10,7 @@ import org.starloco.locos.game.client.Player
 typealias LaunchCommand = (Player, Array<String>) -> Unit
 
 object NewCommand {
+
     data class Command(
             val canBeLaunch : (Player) -> Boolean,
             val onLaunch : LaunchCommand,
@@ -33,7 +34,7 @@ object NewCommand {
      * @param adminLevelRequired minimal admin level needed (default is 1)
      * @param help help message for the command
      */
-    fun addCommand(commandName: String, onLaunch : LaunchCommand, adminLevelRequired: Int = 1, help : String) {
+    fun addCommand(commandName: String, onLaunch : LaunchCommand, adminLevelRequired: Int = 1, help : String = "") {
         addCommand(commandName,
                 Command(fun (player) = player.account.adminLevel >= adminLevelRequired, onLaunch, help))
     }
