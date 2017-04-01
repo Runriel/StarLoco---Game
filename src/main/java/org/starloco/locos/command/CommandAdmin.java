@@ -1668,6 +1668,8 @@ public class CommandAdmin extends AdminUser {
                     while (perso.getLevel() < count)
                         perso.levelUp(false, true);
                     SocketManager.GAME_SEND_NEW_LVL_PACKET(perso.getGameClient(), perso.getLevel());
+                    SocketManager.GAME_SEND_STATS_PACKET(perso);
+                    SocketManager.GAME_SEND_SPELL_LIST(perso);
                 }
                 String mess = "Vous avez fixe le niveau de " + perso.getName() + " e " + count + ".";
                 this.sendMessage(mess);
